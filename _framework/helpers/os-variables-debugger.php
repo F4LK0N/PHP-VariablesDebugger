@@ -243,8 +243,6 @@ function VD($mixed)
                     //Array
                     else if(is_array($mixed))
                     {
-                        $GLOBALS['variable_debugger_caller_distance'] = false;
-                        
                         print
                         "<table style='width:100%;border-collapse:collapse;'>";
                             foreach ($mixed as $index => $value)
@@ -272,74 +270,77 @@ function VD($mixed)
                     //Object
                     else if(is_object($mixed))
                     {
-                        $GLOBALS['variable_debugger_caller_distance'] = false;
-                        
                         print
                         "<table style='width:100%;border-collapse:collapse;'>";
                         
-                            //Attributes
-                            if(isset($attributes))
-                                foreach ($attributes as $key => $row)
-                                {
-                                    if(!$row['static'])
-                                        continue;
-                                    
-                                    print
-                                    "<tr>".
-                                    
-                                        //Key
-                                        "<th style='text-align:right;vertical-align:top;padding:15px 10px;width:10px;'>".
-                                            
-                                            //Modifiers
-                                            "<small>".
-                                                ($row['static']?"<b style='color:#00A;'>static</b> ":"").
-                                                ($row['private']?"<b style='color:#A00;'>private</b>":"").
-                                                ($row['protected']?"<b style='color:#AA0;'>protected</b>":"").
-                                                ($row['public']?"<b style='color:#0A0;'>public</b>":"").
-                                            "</small><br>".
-                                            
-                                            //Name
-                                            "$key:".
-                                        "</th>";
-            
-                                        //Value
+                            //Static|Instance
+                            for($mustBeStatic=0; $mustBeStatic<2; $mustBeStatic++)
+                            {
+                                //Attributes
+                                if(isset($attributes))
+                                    foreach ($attributes as $key => $row)
+                                    {
+                                        if($row['static']===($mustBeStatic===0))
+                                            continue;
+                                        
                                         print
-                                        "<td>"; VD($row['value']); print"</td>".
-                                    "</tr>";
-                                }
-    
-                            //Methods
-                            if(isset($methods))
-                                foreach ($methods as $key => $row)
-                                {
-                                    if(!$row['static'])
-                                        continue;
-                                    
-                                    print
-                                    "<tr>".
-                                    
-                                        //Key
-                                        "<th style='text-align:right;vertical-align:top;padding:15px 10px;width:10px;'>".
-                                            
-                                            //Modifiers
-                                            "<small>".
-                                                ($row['static']?"<b style='color:#00A;'>static</b> ":"").
-                                                ($row['abstract']?"<b style='color:#A0A;'>abstract</b> ":"").
-                                                ($row['final']?"<b style='color:#A0A;'>final</b> ":"").
-                                                ($row['private']?"<b style='color:#A00;'>private</b>":"").
-                                                ($row['protected']?"<b style='color:#AA0;'>protected</b>":"").
-                                                ($row['public']?"<b style='color:#0A0;'>public</b>":"").
-                                            "</small><br>".
-                                            
-                                            //Name
-                                            "$key();".
-                                        "</th>";
-            
-                                        //Value
+                                        "<tr>".
+                                        
+                                            //Key
+                                            "<th style='text-align:right;vertical-align:top;padding:15px 10px;width:10px;'>".
+                                                
+                                                //Modifiers
+                                                "<small>".
+                                                    ($row['static']?"<b style='color:#00A;'>static</b> ":"").
+                                                    ($row['private']?"<b style='color:#A00;'>private</b>":"").
+                                                    ($row['protected']?"<b style='color:#AA0;'>protected</b>":"").
+                                                    ($row['public']?"<b style='color:#0A0;'>public</b>":"").
+                                                "</small><br>".
+                                                
+                                                //Name
+                                                "$key:".
+                                            "</th>";
+                
+                                            //Value
+                                            print
+                                            "<td>"; VD($row['value']); print"</td>".
+                                        "</tr>";
+                                    }
+        
+                                //Methods
+                                if(isset($methods))
+                                    foreach ($methods as $key => $row)
+                                    {
+                                        if($row['static']===($mustBeStatic===0))
+                                            continue;
+                                        
                                         print
-                                        "<td>&nbsp;</td>".
-                                    "</tr>";
-                                }
+                                        "<tr>".
+                                        
+                                            //Key
+                                            "<th style='text-align:right;vertical-align:top;padding:15px 10px;width:10px;'>".
+                                                
+                                                //Modifiers
+                                                "<small>".
+                                                    ($row['static']?"<b style='color:#00A;'>static</b> ":"").
+                                                    ($row['abstract']?"<b style='color:#A0A;'>abstract</b> ":"").
+                                                    ($row['final']?"<b style='color:#A0A;'>final</b> ":"").
+                                                    ($row['private']?"<b style='color:#A00;'>private</b>":"").
+                                                    ($row['protected']?"<b style='color:#AA0;'>protected</b>":"").
+                                                    ($row['public']?"<b style='color:#0A0;'>public</b>":"").
+                                                "</small><br>".
+                                                
+                                                //Name
+                                                "$key();".
+                                            "</th>";
+                
+                                            //Value
+                                            print
+                                            "<td>&nbsp;</td>".
+                                        "</tr>";
+                                    }
+                            }
+                        
     
                         print
                         "</table>";
