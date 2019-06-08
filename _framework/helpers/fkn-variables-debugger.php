@@ -5,7 +5,7 @@
  * ##########################################################################################
  *
  * Version:
- *      2.7
+ *      2.8
  * Last Update:
  *      2019/06/08 (YYYY/MM/DD)
  * Code Repository:
@@ -86,7 +86,7 @@ $GLOBALS['variable_debugger___caller_path_display_format'] = strlen(dirname(dirn
  * variables inside variables, to avoid infinite loops and others unexpected behaviors.
  *
  */
-$GLOBALS['variable_debugger___nesting_max'] = 25;
+$GLOBALS['variable_debugger___nesting_max'] = 10;
 
 
 
@@ -136,8 +136,16 @@ function VD($mixed)
     if(!isset($GLOBALS['variable_debugger___nesting_current']))
         $GLOBALS['variable_debugger___nesting_current'] = 0;
     if($GLOBALS['variable_debugger___nesting_current']>$GLOBALS['variable_debugger___nesting_max'])
-        return print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(255,0,0,0.2);color:#A00;'><b>!!! Nesting Calls Limit Reached !!!</b></div>";
+        return print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(255,0,0,0.2);color:#A00;'><b>!!! NESTED CALLS LIMIT !!!</b></div>";
     $GLOBALS['variable_debugger___nesting_current']++;
+    
+    
+    //Self Reference
+    if($GLOBALS['variable_debugger___nesting_current']===1){
+        $GLOBALS['variable_debugger___starter_reference'] = null;
+        if(is_array($mixed) || is_object($mixed))
+            $GLOBALS['variable_debugger___starter_reference'] = &$mixed;
+    }
     
     
     //Container
@@ -286,20 +294,27 @@ function VD($mixed)
                     {
                         print
                         "<table style='width:100%;border-collapse:collapse;'>";
-                            foreach ($mixed as $index => $value)
+                            foreach ($mixed as $key => $value)
                             {
-                                //Avoid infinite loops on the GLOBALS variable.
-                                if($index==="GLOBALS")
-                                    continue;
-
-                                //Elements
                                 print
                                 "<tr>".
-                                    //Index
-                                    "<th style='text-align:right;vertical-align:top;padding:15px 10px;width:10px;'>[$index]</th>".
+                                    //Key
+                                    "<th style='text-align:right;vertical-align:top;padding:15px 10px;width:10px;'>[$key]</th>";
                                 
                                     //Value
-                                    "<td>"; VD($value); print"</td>".
+                                    {
+                                        print
+                                        "<td>";
+                                            //Self Reference
+                                            if($GLOBALS['variable_debugger___starter_reference']!==null && $GLOBALS['variable_debugger___starter_reference']===$value)
+                                                print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);color:#A00;'><b>&SELF REFERENCE</b></div>";
+                                            //Normal Value
+                                            else
+                                                VD($value);
+                                        print
+                                        "</td>";
+                                    }
+                                print
                                 "</tr>";
                             }
                         print
@@ -342,7 +357,15 @@ function VD($mixed)
                 
                                             //Value
                                             print
-                                            "<td>"; VD($row['value']); print"</td>".
+                                            "<td>";
+                                                //Self Reference
+                                                if($GLOBALS['variable_debugger___starter_reference']!==null && $GLOBALS['variable_debugger___starter_reference']===$row['value'])
+                                                    print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);color:#A00;'><b>&SELF REFERENCE</b></div>";
+                                                //Normal Value
+                                                else
+                                                    VD($row['value']);
+                                            print
+                                            "</td>".
                                         "</tr>";
                                     }
         
@@ -408,6 +431,11 @@ function VD($mixed)
     //Container
     print
     "</div>";
+    
+    
+    //Self Reference
+    if($GLOBALS['variable_debugger___nesting_current']===1)
+        unset($GLOBALS['variable_debugger___starter_reference']);
     
     
     //Nesting
