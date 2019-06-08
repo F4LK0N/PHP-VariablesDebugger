@@ -137,6 +137,7 @@ function VD($mixed)
         $GLOBALS['variable_debugger___nesting_current'] = 1;
     if($GLOBALS['variable_debugger___nesting_current']>$GLOBALS['variable_debugger___nesting_max'])
         return print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(255,0,0,0.2);color:#A00;'><b>!!! Nesting Calls Limit Reached !!!</b></div>";
+    $GLOBALS['variable_debugger___nesting_current']++;
     
     
     //Container
@@ -167,16 +168,16 @@ function VD($mixed)
         
         //Variable Debug
         {
-            
             //Type
             {
                 print
                 "<div style='font-size:18px';>";
 
                     //Name
-                    print"<b>".gettype($mixed)."</b>";
-
-                    //Special Info
+                    print
+                    "<b>".gettype($mixed)."</b>";
+                    
+                    //Additional Info
                     {
                         //String Length
                         if(is_string($mixed)) print
@@ -255,22 +256,21 @@ function VD($mixed)
                             " : <b>".count($attributes)."</b> <small><small>attribute(s)</small></small> &nbsp; &nbsp; <b>".count($methods)."</b> <small><small>methods(s)</small></small>";
                         }
                     }
-
                 print
                 "</div>";
             }
-
-
-            //Content
-            if(!is_null($mixed))
+            
+            //Value
             {
-                $GLOBALS['variable_debugger___nesting_current']++;
-                
                 print
                 "<div style='font-size:16px;padding:10px 18px;margin:2px 10px 0;background-color:rgba(0,0,0,0.1);border-radius:10px;'>";
 
+                    //Null
+                    if(is_null($mixed)) print
+                        "<b style='color:#A00;'>NULL</b>";
+                    
                     //Boolean
-                    if(is_bool($mixed)) print
+                    else if(is_bool($mixed)) print
                         ($mixed===true?"<b style='color:#0A0;'>TRUE</b>":"<b style='color:#A00;'>FALSE</b>");
 
                     //Integer | Long | Float | Double
@@ -291,8 +291,6 @@ function VD($mixed)
                                 //Avoid infinite loops on the GLOBALS variable.
                                 if($index==="GLOBALS")
                                     continue;
-                                
-                                //TODO: Avoid infinite loops on the starter variable when it has references to itself.
 
                                 //Elements
                                 print
@@ -400,12 +398,10 @@ function VD($mixed)
                     
                     //Unknown
                     else print
-                        "<b style='color:#A00;'>?????</b>";
+                        "<b style='color:#A00;'>!!! UNKNOWN TYPE !!!</b>";
 
                 print
                 "</div>";
-    
-                $GLOBALS['variable_debugger___nesting_current']--;
             }
         }
         
@@ -415,6 +411,7 @@ function VD($mixed)
     
     
     //Nesting
+    $GLOBALS['variable_debugger___nesting_current']--;
     if($GLOBALS['variable_debugger___nesting_current']===1)
         unset($GLOBALS['variable_debugger___nesting_current']);
     

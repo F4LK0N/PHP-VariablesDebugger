@@ -260,10 +260,20 @@ require "_framework/loader.php";
             ?>
             </div>
     
-            <h4>Singleton (Self Reference)</h4>
+            <h4>Self Reference</h4>
             <div style='padding-left:20px;margin-bottom:30px;'>
             <?php
-            
+                $temp = [
+                    0,
+                    [
+                        'a',
+                        'ref' => null,
+                        'c',
+                    ],
+                    2
+                ];
+                
+                VD($temp);
             ?>
             </div>
             
