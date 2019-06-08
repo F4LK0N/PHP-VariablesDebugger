@@ -23,11 +23,11 @@ require "_framework/loader.php";
     </p>
     <ul>
         <li>Accepts variables containing <b>nulls</b>, <b>booleans</b>, <b>integers</b>, <b>floats</b>, <b>strings</b>, <b>arrays</b>, <b>objects</b> and <b>resources</b>.</li>
-        <li>Display object instance public, protected and private attributes and methods.</li>
-        <li>Display object static public, protected and private attributes and methods.</li>
+        <li>Display all object instance and static attributes and methods.</li>
+        <li>Display object attributes and methods modifiers (public, protected, private, abstract, final).</li>
         <li>HTML structured results.</li>
-        <li>Customizable layout focused on improved reading.</li>
-        <li>Small and easy to type functions names (VD and VDD).</li>
+        <li>Customizable layout colored and spaced, focused on improve reading.</li>
+        <li>Small and easy to type function names (VD and VDD).</li>
         <li>No external dependencies.</li>
     </ul>
 
