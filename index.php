@@ -264,15 +264,23 @@ require "_framework/loader.php";
             <div style='padding-left:20px;margin-bottom:30px;'>
             <?php
                 $temp = [
-                    0,
-                    [
-                        'a',
-                        'ref' => null,
-                        'c',
-                    ],
-                    2
+                    'a' => [
+                        'b' => [
+                            'ref' => null,
+                        ]
+                    ]
                 ];
-                
+                $temp['a']['b']['ref'] = &$temp;
+                VD($temp);
+
+                $temp = (object)[
+                    'a' => (object)[
+                        'b' => (object)[
+                            'ref' => null,
+                        ]
+                    ]
+                ];
+                $temp->a->b->ref = &$temp;
                 VD($temp);
             ?>
             </div>
