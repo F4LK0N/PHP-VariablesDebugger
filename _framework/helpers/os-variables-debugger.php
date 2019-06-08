@@ -280,7 +280,7 @@ function VD($mixed)
                                 if(isset($attributes))
                                     foreach ($attributes as $key => $row)
                                     {
-                                        if($row['static']===($mustBeStatic===0))
+                                        if($row['static']===($mustBeStatic===1))
                                             continue;
                                         
                                         print
@@ -311,7 +311,7 @@ function VD($mixed)
                                 if(isset($methods))
                                     foreach ($methods as $key => $row)
                                     {
-                                        if($row['static']===($mustBeStatic===0))
+                                        if($row['static']===($mustBeStatic===1))
                                             continue;
                                         
                                         print
