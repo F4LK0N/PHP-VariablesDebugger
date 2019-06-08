@@ -53,7 +53,7 @@
  * You can choose to display the absolute path of the file, or a path relative to you project's root directory, or even don't show nothing at all;
  *
  * This is done using the 'substr' function and setting the 'start' with the value defined by this variable:
- *     $GLOBALS['variable_debugger_caller_path_display_format']
+ *     $GLOBALS['variable_debugger___caller_path_display_format']
  *
  * Display Format Configuration:
  *     - Display Relative Path:
@@ -67,9 +67,9 @@
  *     - Hide Path:
  *         - Set the value to false (boolean);
  */
-$GLOBALS['variable_debugger_caller_path_display_format'] = strlen(dirname(dirname(dirname(__FILE__))));
-//$GLOBALS['variable_debugger_caller_path_display_format'] = 0;
-//$GLOBALS['variable_debugger_caller_path_display_format'] = false;
+$GLOBALS['variable_debugger___caller_path_display_format'] = strlen(dirname(dirname(dirname(__FILE__))));
+//$GLOBALS['variable_debugger___caller_path_display_format'] = 0;
+//$GLOBALS['variable_debugger___caller_path_display_format'] = false;
 
 
 
@@ -127,7 +127,7 @@ function VD($mixed)
             print
             "<div style='font-size:12px;color:rgba(0,0,0,0.25);margin-bottom:8px;'>".
                 //Path
-                "<small><u>".substr($caller1['file'], $GLOBALS['variable_debugger_caller_path_display_format'], -4)."</u></small>:<b>".$caller1['line']."</b>".
+                "<small><u>".substr($caller1['file'], $GLOBALS['variable_debugger___caller_path_display_format'], -4)."</u></small>:<b>".$caller1['line']."</b>".
                 //Function or Method
                 (($caller2===null)?"":" &nbsp; - &nbsp; <small>".@$caller2['class'].@$caller2['type'].@$caller2['function']."()</small>").
             "</div>";
