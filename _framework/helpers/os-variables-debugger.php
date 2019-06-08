@@ -77,6 +77,21 @@ $GLOBALS['variable_debugger___caller_path_display_format'] = strlen(dirname(dirn
 
 /**
  * ##########################################################################################
+ * ### Max Nesting Depth ###
+ * ##########################################################################################
+ *
+ * Limit the nesting functions calls that can be made inside VD when it is debugging
+ * variables inside variables, to avoid infinite loops and others unexpected behaviors.
+ *
+ */
+$GLOBALS['variable_debugger___nesting_max'] = 25;
+
+
+
+
+
+/**
+ * ##########################################################################################
  * ### Variable Debugger and Die ###
  * ##########################################################################################
  *
@@ -87,7 +102,7 @@ $GLOBALS['variable_debugger___caller_path_display_format'] = strlen(dirname(dirn
  */
 function VDD($mixed)
 {
-    $GLOBALS['variable_debugger_caller_distance'] = 1;
+    $GLOBALS['variable_debugger___caller_distance'] = 1;
     VD($mixed);
     die;
 }
@@ -116,13 +131,22 @@ function VD($mixed)
     print
     "<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);'>";
 
+        //Nesting
+        if(!isset($GLOBALS['variable_debugger___nesting_current']))
+            $GLOBALS['variable_debugger___nesting_current'] = 1;
+        if($GLOBALS['variable_debugger___nesting_current']>$GLOBALS['variable_debugger___nesting_max'])
+            return;
+        
+    
         //Caller
-        if(!isset($GLOBALS['variable_debugger_caller_distance']))
-            $GLOBALS['variable_debugger_caller_distance'] = 0;
-        if($GLOBALS['variable_debugger_caller_distance']===0 || $GLOBALS['variable_debugger_caller_distance']===1){
-            $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $GLOBALS['variable_debugger_caller_distance']+2);
-            $caller1 = $trace[$GLOBALS['variable_debugger_caller_distance']];
-            $caller2 = @$trace[$GLOBALS['variable_debugger_caller_distance']+1];
+        if($GLOBALS['variable_debugger___nesting_current']===1)
+        {
+            if(!isset($GLOBALS['variable_debugger___caller_distance']))
+                $GLOBALS['variable_debugger___caller_distance'] = 0;
+            
+            $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $GLOBALS['variable_debugger___caller_distance']+2);
+            $caller1 = $trace[$GLOBALS['variable_debugger___caller_distance']];
+            $caller2 = @$trace[$GLOBALS['variable_debugger___caller_distance']+1];
             
             print
             "<div style='font-size:12px;color:rgba(0,0,0,0.25);margin-bottom:8px;'>".
@@ -131,12 +155,14 @@ function VD($mixed)
                 //Function or Method
                 (($caller2===null)?"":" &nbsp; - &nbsp; <small>".@$caller2['class'].@$caller2['type'].@$caller2['function']."()</small>").
             "</div>";
+            
+            unset($GLOBALS['variable_debugger___caller_distance']);
         }
-        $GLOBALS['variable_debugger_caller_distance']=false;
     
         
         //Variable Debug
         {
+            
             //Type
             {
                 print
@@ -233,6 +259,8 @@ function VD($mixed)
             //Content
             if(!is_null($mixed))
             {
+                $GLOBALS['variable_debugger___nesting_current']++;
+                
                 print
                 "<div style='font-size:16px;padding:10px 18px;margin:2px 10px 0;background-color:rgba(0,0,0,0.1);border-radius:10px;'>";
 
@@ -371,14 +399,11 @@ function VD($mixed)
 
                 print
                 "</div>";
+    
+                $GLOBALS['variable_debugger___nesting_current']--;
             }
         }
         
-        
-        //Caller
-        if($GLOBALS['variable_debugger_caller_distance']===0 || $GLOBALS['variable_debugger_caller_distance']===1)
-            unset($GLOBALS['variable_debugger_caller_distance']);
-
     //Container
     print
     "</div>";
