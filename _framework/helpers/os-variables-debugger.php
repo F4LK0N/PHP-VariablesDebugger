@@ -336,12 +336,16 @@ function VD($mixed)
                 
                                             //Value
                                             print
-                                            "<td>&nbsp;</td>".
+                                            "<td>".
+                                                "<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);'>" .
+                                                    "<div style='font-size:18px' ;=''><b>method</b></div>".
+                                                    "<div style='font-size:16px;padding:10px 18px;margin:2px 10px 0;background-color:rgba(0,0,0,0.1);border-radius:10px;'>&nbsp;</div>".
+                                                "</div>".
+                                            "</td>".
                                         "</tr>";
                                     }
                             }
-                        
-    
+                            
                         print
                         "</table>";
                     }
