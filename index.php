@@ -162,6 +162,8 @@ require "_framework/loader.php";
 
 
         //Resources
+        $temp = curl_init();
+        VD($temp);
 
     ?>
 </body>

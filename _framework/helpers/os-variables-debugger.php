@@ -353,9 +353,8 @@ function VD($mixed)
                     //Resource
                     else if(is_resource($mixed))
                     {
-                        //TODO: Resource treatment.
                         print
-                        "<b style='color:#A00;'>RESOURCE</b>";
+                        "<b style='color:#A00;'>".get_resource_type($mixed)." resource</b>";
                     }
                     
                     //Unknown
