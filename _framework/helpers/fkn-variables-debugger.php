@@ -79,10 +79,10 @@ $GLOBALS['variable_debugger___caller_path_display_format'] = strlen(dirname(dirn
 
 /**
  * ##########################################################################################
- * ### Max Nesting Depth ###
+ * ### Nesting Calls Limit ###
  * ##########################################################################################
  *
- * Limit the nesting functions calls that can be made inside VD when it is debugging
+ * Limit the nesting functions calls that can be made from VD to itself when debugging
  * variables inside variables, to avoid infinite loops and others unexpected behaviors.
  *
  */
@@ -134,7 +134,7 @@ function VD($mixed)
     
     //Nesting
     if(!isset($GLOBALS['variable_debugger___nesting_current']))
-        $GLOBALS['variable_debugger___nesting_current'] = 1;
+        $GLOBALS['variable_debugger___nesting_current'] = 0;
     if($GLOBALS['variable_debugger___nesting_current']>$GLOBALS['variable_debugger___nesting_max'])
         return print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(255,0,0,0.2);color:#A00;'><b>!!! Nesting Calls Limit Reached !!!</b></div>";
     $GLOBALS['variable_debugger___nesting_current']++;
@@ -412,7 +412,7 @@ function VD($mixed)
     
     //Nesting
     $GLOBALS['variable_debugger___nesting_current']--;
-    if($GLOBALS['variable_debugger___nesting_current']===1)
+    if($GLOBALS['variable_debugger___nesting_current']===0)
         unset($GLOBALS['variable_debugger___nesting_current']);
     
 }
