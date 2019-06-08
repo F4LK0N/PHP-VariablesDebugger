@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ##########################################################################################
  * ### Otavio Soria's Personal PHP Variables Debugger ###
@@ -14,6 +13,29 @@
  *      Otavio Bernardes Soria
  *  Email:
  *      otaviosoria@gmail.com
+ *
+ *
+ * ##########################################################################################
+ * ### Author's Message ###
+ * ##########################################################################################
+ *
+ * I made this code for myself to help tasks like debug online environments where the default
+ * var_dump function can't be formatted easily (with xdebug for example) and I need to
+ * visualize and understand variables with huge contents.
+ *
+ * It helped me a lot, and still does. I'm sharing it with you in hope it do the same.
+ *
+ * The code is simple and I tried to let its code clear and well commented as possible.
+ *
+ * I don't expect to apply any type of copyright or restrictions to this code, fell free to
+ * use it as you want.
+ *
+ * If desire to recognize my work about this code, you can point or share a link to the
+ * github repository where you judge right in your project or whatever you are doing.
+ *
+ * Feel free to edit this code and use in your projects as you wish.
+ *
+ * Enjoy!
  *
  * ##########################################################################################
  */
