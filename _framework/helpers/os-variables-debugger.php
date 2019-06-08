@@ -404,6 +404,11 @@ function VD($mixed)
             }
         }
         
+        
+        //Nesting
+        if($GLOBALS['variable_debugger___nesting_current']===1)
+            unset($GLOBALS['variable_debugger___nesting_current']);
+        
     //Container
     print
     "</div>";
