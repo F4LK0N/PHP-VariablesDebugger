@@ -116,17 +116,25 @@ function VD($mixed)
     print
     "<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);'>";
 
-        //Function Caller (Path and Line)
+        //Caller
         if(!isset($GLOBALS['variable_debugger_caller_distance']))
             $GLOBALS['variable_debugger_caller_distance'] = 0;
         if($GLOBALS['variable_debugger_caller_distance']===0 || $GLOBALS['variable_debugger_caller_distance']===1){
             $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $GLOBALS['variable_debugger_caller_distance']+2);
             $caller1 = $trace[$GLOBALS['variable_debugger_caller_distance']];
             $caller2 = @$trace[$GLOBALS['variable_debugger_caller_distance']+1];
-            print "<div style='font-size:12px;color:rgba(0,0,0,0.25);margin-bottom:8px;'><small><u>".substr($caller1['file'], $GLOBALS['variable_debugger_caller_path_display_format'], -4)."</u></small>:<b>".$caller1['line']."</b> &nbsp; - &nbsp; <small>".@$caller2['class'].@$caller2['type'].@$caller2['function']."()</small></div>";
+            
+            print
+            "<div style='font-size:12px;color:rgba(0,0,0,0.25);margin-bottom:8px;'>".
+                //Path
+                "<small><u>".substr($caller1['file'], $GLOBALS['variable_debugger_caller_path_display_format'], -4)."</u></small>:<b>".$caller1['line']."</b>".
+                //Function or Method
+                (($caller2===null)?"":" &nbsp; - &nbsp; <small>".@$caller2['class'].@$caller2['type'].@$caller2['function']."()</small>").
+            "</div>";
         }
         $GLOBALS['variable_debugger_caller_distance']=false;
-
+    
+        
         //Variable Debug
         {
             //Type
@@ -366,8 +374,10 @@ function VD($mixed)
             }
         }
         
-        //Function Caller (Reset)
-        unset($GLOBALS['variable_debugger_caller_distance']);
+        
+        //Caller
+        if($GLOBALS['variable_debugger_caller_distance']===0 || $GLOBALS['variable_debugger_caller_distance']===1)
+            unset($GLOBALS['variable_debugger_caller_distance']);
 
     //Container
     print
