@@ -1,17 +1,19 @@
 <?php
 /**
  * ##########################################################################################
- * ### Otavio Soria's Personal PHP Variables Debugger ###
+ * ### F4LK0N's Custom PHP Variables Debugger ###
  * ##########################################################################################
  *
- *  Version:
+ * Version:
  *      2.7
- *  Last Update:
+ * Last Update:
  *      2019/06/08 (YYYY/MM/DD)
+ * Code Repository:
+ *      https://github.com/F4LK0N/PHP-VariablesDebugger.git
  *
- *  Author:
+ * Author:
  *      Otavio Bernardes Soria
- *  Email:
+ * Email:
  *      otaviosoria@gmail.com
  *
  *
