@@ -136,7 +136,7 @@ function VD($mixed)
     if(!isset($GLOBALS['variable_debugger___nesting_current']))
         $GLOBALS['variable_debugger___nesting_current'] = 1;
     if($GLOBALS['variable_debugger___nesting_current']>$GLOBALS['variable_debugger___nesting_max'])
-        return print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);color:#A00;'><b>!!! Nesting Calls Limit Reached !!!</b></div>";
+        return print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(255,0,0,0.2);color:#A00;'><b>!!! Nesting Calls Limit Reached !!!</b></div>";
     
     
     //Container
