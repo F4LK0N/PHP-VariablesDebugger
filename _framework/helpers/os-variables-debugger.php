@@ -121,22 +121,25 @@ function VDD($mixed)
  * @param mixed $mixed
  *      Any variable you want to debug.
  *
+ * @return null;
+ *
  */
 function VD($mixed)
 {
     //HTTP Header
     @header("Content-Type: text/html; charset=utf-8");
-
+    
+    
+    //Nesting
+    if(!isset($GLOBALS['variable_debugger___nesting_current']))
+        $GLOBALS['variable_debugger___nesting_current'] = 1;
+    if($GLOBALS['variable_debugger___nesting_current']>$GLOBALS['variable_debugger___nesting_max'])
+        return print"<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);color:#A00;'><b>!!! Nesting Calls Limit Reached !!!</b></div>";
+    
+    
     //Container
     print
     "<div class='variable-debug' style='padding:10px;border:1px solid rgba(0,0,0,0.2);'>";
-
-        //Nesting
-        if(!isset($GLOBALS['variable_debugger___nesting_current']))
-            $GLOBALS['variable_debugger___nesting_current'] = 1;
-        if($GLOBALS['variable_debugger___nesting_current']>$GLOBALS['variable_debugger___nesting_max'])
-            return;
-        
     
         //Caller
         if($GLOBALS['variable_debugger___nesting_current']===1)
@@ -404,13 +407,14 @@ function VD($mixed)
             }
         }
         
-        
-        //Nesting
-        if($GLOBALS['variable_debugger___nesting_current']===1)
-            unset($GLOBALS['variable_debugger___nesting_current']);
-        
     //Container
     print
     "</div>";
+    
+    
+    //Nesting
+    if($GLOBALS['variable_debugger___nesting_current']===1)
+        unset($GLOBALS['variable_debugger___nesting_current']);
+    
 }
 

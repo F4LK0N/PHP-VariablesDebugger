@@ -74,97 +74,146 @@ require "_framework/loader.php";
 
     <h2>Examples</h2>
     <?php
-        //Null
-        VD(null);
+        //Outside Functions and Methods
+        VD("Outside Functions and Methods");
 
-
-        //Booleans
-        VD(true);
-        VD(false);
-
-
-        //Integers
-        VD(1);
-        VD(0);
-        VD(-1);
-
-
-        //Floats
-        VD(1.234);
-        VD(1.2e3);
-        VD(7E-10);
-
-
-        //Strings
-        VD("");
-        VD("Lorem Ipsum");
-        VD("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porttitor pulvinar turpis at condimentum. Suspendisse nec magna euismod nisi volutpat vestibulum. Phasellus commodo augue nec nibh tristique, molestie placerat felis vehicula. Cras in eros venenatis, varius libero quis, varius risus. Phasellus eu faucibus tellus, ac tristique est. Ut non eleifend nibh. In lobortis neque vel est cursus maximus. Praesent sodales odio felis, mattis convallis turpis imperdiet id. Ut tempus, turpis at venenatis gravida, lacus enim tincidunt nisl, a ornare enim ante at ex. Donec efficitur dignissim neque, posuere ornare risus bibendum eget. Nunc sed finibus felis. Vivamus sed eleifend urna. Mauris vestibulum ultricies eros, et vehicula tortor vehicula nec.");
-
-
-        //Arrays
-        VD([]);
-        VD(['a', 'b', 'c']);
-        VD([['a', 'b', 'c'],['a', 'b', 'c'],['a', 'b', 'c']]);
-
-
-        //Objects
-        $temp = new stdClass();
-        VD($temp);
-
-        $temp = new stdClass();
-        $temp->attributeA = "Aaa";
-        $temp->attributeB = "bBb";
-        $temp->attributeC = "ccC";
-        VD($temp);
-
-        class Temp
+        
+        //Inside a Function
+        function RunExamples()
         {
-            static public $staticPublicAttributeA = "static public A";
-            static protected $staticProtectedAttributeA = "static protected A";
-            static private $staticPrivateAttributeA = "static private A";
-
-            public $publicAttributeA = "public A";
-            public $publicAttributeB = "public B";
-            public $publicAttributeC = "public C";
-            protected $protectedAttributeA = "protected A";
-            protected $protectedAttributeB = "protected B";
-            protected $protectedAttributeC = "protected C";
-            private $privateAttributeA = "private A";
-            private $privateAttributeB = "private B";
-            private $privateAttributeC = "private C";
-
-
-
-            static public function staticPublicMethodA (){}
-            static protected function staticProtectedMethodA (){}
-            static private function staticPrivateMethodA (){}
-
-            public function publicMethodA (){}
-            public function publicMethodB (){}
-            protected function protectedMethodA (){}
-            protected function protectedMethodB (){}
-            private function privateMethodA (){}
-            private function privateMethodB (){}
-
-            final public function finalMethodA (){}
-            final protected function finalMethodB (){}
-            final private function finalMethodC (){}
+            //Null
+            VD(null);
+    
+    
+            //Booleans
+            VD(true);
+            VD(false);
+    
+    
+            //Integers
+            VD(1);
+            VD(0);
+            VD(-1);
+    
+    
+            //Floats
+            VD(1.234);
+            VD(1.2e3);
+            VD(7E-10);
+    
+    
+            //Strings
+            VD("");
+            VD("Lorem Ipsum");
+            VD("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porttitor pulvinar turpis at condimentum. Suspendisse nec magna euismod nisi volutpat vestibulum. Phasellus commodo augue nec nibh tristique, molestie placerat felis vehicula. Cras in eros venenatis, varius libero quis, varius risus. Phasellus eu faucibus tellus, ac tristique est. Ut non eleifend nibh. In lobortis neque vel est cursus maximus. Praesent sodales odio felis, mattis convallis turpis imperdiet id. Ut tempus, turpis at venenatis gravida, lacus enim tincidunt nisl, a ornare enim ante at ex. Donec efficitur dignissim neque, posuere ornare risus bibendum eget. Nunc sed finibus felis. Vivamus sed eleifend urna. Mauris vestibulum ultricies eros, et vehicula tortor vehicula nec.");
+    
+    
+            //Arrays
+            VD([]);
+            VD(['a', 'b', 'c']);
+            VD([['a', 'b', 'c'], ['a', 'b', 'c'], ['a', 'b', 'c']]);
+    
+    
+            //Objects
+            $temp = new stdClass();
+            VD($temp);
+    
+            $temp = new stdClass();
+            $temp->attributeA = "Aaa";
+            $temp->attributeB = "bBb";
+            $temp->attributeC = "ccC";
+            VD($temp);
+    
+            class Temp
+            {
+                static public    $staticPublicAttributeA    = "static public A";
+                static protected $staticProtectedAttributeA = "static protected A";
+                static private   $staticPrivateAttributeA   = "static private A";
+        
+                public    $publicAttributeA    = "public A";
+                public    $publicAttributeB    = "public B";
+                public    $publicAttributeC    = "public C";
+                protected $protectedAttributeA = "protected A";
+                protected $protectedAttributeB = "protected B";
+                protected $protectedAttributeC = "protected C";
+                private   $privateAttributeA   = "private A";
+                private   $privateAttributeB   = "private B";
+                private   $privateAttributeC   = "private C";
+        
+        
+                static public function staticPublicMethodA(){ }
+        
+                static protected function staticProtectedMethodA(){ }
+        
+                static private function staticPrivateMethodA(){ }
+        
+                public function publicMethodA(){ }
+        
+                public function publicMethodB(){ }
+        
+                protected function protectedMethodA(){ }
+        
+                protected function protectedMethodB(){ }
+        
+                private function privateMethodA(){ }
+        
+                private function privateMethodB(){ }
+        
+                final public function finalMethodA(){ }
+        
+                final protected function finalMethodB(){ }
+        
+                final private function finalMethodC(){ }
+            }
+    
+            $temp = new Temp();
+            VD($temp);
+    
+            $temp = new Temp();
+            $temp->customA = "custom A";
+            $temp->customB = "custom B";
+            $temp->customC = "custom C";
+            VD($temp);
+    
+    
+            //Resources
+            $temp = curl_init();
+            VD($temp);
         }
-
-        $temp = new Temp();
+        RunExamples();
+        
+        
+        //Inside a Method
+        class Examples
+        {
+            static public function RunStatic()
+            {
+                VD("Inside Static Method");
+            }
+    
+            public function Run()
+            {
+                VD("Inside Method");
+            }
+        }
+        Examples::RunStatic();
+        (new Examples())->Run();
+        
+        
+        //Nesting
+        $GLOBALS['variable_debugger___nesting_max'] = 3;
+        $temp = [];
+        $tempPointer = &$temp;
+        for($i=0; $i<$GLOBALS['variable_debugger___nesting_max']+1; $i++){
+            $tempPointer = [
+                $i,
+                null,
+                $i,
+            ];
+            $tempPointer = &$tempPointer[1];
+        }
         VD($temp);
-
-        $temp = new Temp();
-        $temp->customA = "custom A";
-        $temp->customB = "custom B";
-        $temp->customC = "custom C";
-        VD($temp);
-
-
-        //Resources
-        $temp = curl_init();
-        VD($temp);
-
+        
     ?>
 </body>
 </html>
