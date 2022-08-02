@@ -24,8 +24,8 @@ Usage
 You just need to call the VD or VDD function passing the variable you want to debug as parameter.
 Example:
 
-    VD($foo);   //Will display de var
-    VD($foo2);  //Will display de var
-    VDD($foo3); //Will display de var and call die();
+    VD($foo);   //Will display the var
+    VD($foo2);  //Will display the var
+    VDD($foo3); //Will display the var and call die();
 
 
